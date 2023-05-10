@@ -14,6 +14,8 @@ window.addEventListener('load', function(){
 			this.collisionX = this.game.width * 0.5;
 			this.collisionY = this.game.height * 0.5;
 			this.collisionRadius = 30;
+			this.speedX = 0;
+			this.speedY = 0;
 		}
 		draw(context){
 			context.beginPath();
@@ -23,6 +25,16 @@ window.addEventListener('load', function(){
 			context.fill();
 			context.restore();
 			context.stroke();
+			context.beginPath();
+			context.moveTo(this.collisionX, this.collisionY);
+			context.lineTo(this.game.mouse.x, this.game.mouse.y);
+			context.stroke();
+		}
+		update(){
+			this.speedX = (this.game.mouse.x - this.collisionX)/20;
+			this.speedY = (this.game.mouse.y - this.collisionY)/20;
+			this.collisionX += this.speedX;
+			this.collisionY += this.speedY;
 		}
 	}
 
@@ -56,13 +68,16 @@ window.addEventListener('load', function(){
 		}
 		render(context){
 			this.player.draw(context);
+			this.player.update();
 		}
 	}
 
 	const game = new Game(canvas);
-	game.render(ctx);
 
 	function animate(){
-
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		game.render(ctx);
+		window.requestAnimationFrame(animate);
 	}
+	animate();
 });
