@@ -80,6 +80,7 @@ window.addEventListener('load', function(){
 			this.canvas = canvas;
 			this.width = this.canvas.width;
 			this.height = this.canvas.height;
+			this.topMargin = 260;
 			this.player = new Player(this);
 			this.numberOfObstacles = 10;
 			this.obstacles = [];
@@ -121,12 +122,14 @@ window.addEventListener('load', function(){
 					const dx = testObstacle.collisionX - obstacle.collisionX;
 					const dy = testObstacle.collisionY - obstacle.collisionY;
 					const distance = Math.hypot(dy, dx);
-					const sumOfRadii = testObstacle.collisionRadius + obstacle.collisionRadius;
+					const distanceBuffer = 100;
+					const sumOfRadii = testObstacle.collisionRadius + obstacle.collisionRadius + distanceBuffer;
 					if (distance < sumOfRadii){
 						overlap = true;
 					}
 				});
-				if (!overlap){
+				const margin = testObstacle.collisionRadius * 2;
+				if (!overlap && testObstacle.spriteX > 0 && testObstacle.spriteX < this.width - testObstacle.width && testObstacle.collisionY > this.topMargin + margin && testObstacle.collisionY < this.height - margin){
 					this.obstacles.push(testObstacle);
 				}
 				attempts++;
@@ -136,7 +139,6 @@ window.addEventListener('load', function(){
 
 	const game = new Game(canvas);
 	game.init();
-	console.log(game);
 
 	function animate(){
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
