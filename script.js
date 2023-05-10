@@ -38,22 +38,20 @@ window.addEventListener('load', function(){
 				pressed: false
 			}
 
-			console.log(this.canvas);
 			// event listeners
-			window.addEventListener('mousedown', (e) => {
+			this.canvas.addEventListener('mousedown', (e) => {
 				this.mouse.x = e.offsetX;
 				this.mouse.y = e.offsetY;
 				this.mouse.pressed = true;
 			});
-			window.addEventListener('mouseup', (e) => {
+			this.canvas.addEventListener('mouseup', (e) => {
 				this.mouse.x = e.offsetX;
 				this.mouse.y = e.offsetY;
 				this.mouse.pressed = false;
 			});
-			window.addEventListener('mousemove', (e) => {
+			this.canvas.addEventListener('mousemove', (e) => {
 				this.mouse.x = e.offsetX;
 				this.mouse.y = e.offsetY;
-				console.log(this.mouse.x);
 			});
 		}
 		render(context){
