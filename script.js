@@ -66,8 +66,10 @@ window.addEventListener('load', function(){
 				this.mouse.pressed = false;
 			});
 			this.canvas.addEventListener('mousemove', (e) => {
-				this.mouse.x = e.offsetX;
-				this.mouse.y = e.offsetY;
+				if (this.mouse.pressed){
+					this.mouse.x = e.offsetX;
+					this.mouse.y = e.offsetY;
+				}
 			});
 		}
 		render(context){
