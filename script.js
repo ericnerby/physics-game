@@ -32,6 +32,29 @@ window.addEventListener('load', function(){
 			this.width = this.canvas.width;
 			this.height = this.canvas.height;
 			this.player = new Player(this);
+			this.mouse = {
+				x: this.width * 0.5,
+				y: this.height * 0.5,
+				pressed: false
+			}
+
+			console.log(this.canvas);
+			// event listeners
+			window.addEventListener('mousedown', (e) => {
+				this.mouse.x = e.offsetX;
+				this.mouse.y = e.offsetY;
+				this.mouse.pressed = true;
+			});
+			window.addEventListener('mouseup', (e) => {
+				this.mouse.x = e.offsetX;
+				this.mouse.y = e.offsetY;
+				this.mouse.pressed = false;
+			});
+			window.addEventListener('mousemove', (e) => {
+				this.mouse.x = e.offsetX;
+				this.mouse.y = e.offsetY;
+				console.log(this.mouse.x);
+			});
 		}
 		render(context){
 			this.player.draw(context);
